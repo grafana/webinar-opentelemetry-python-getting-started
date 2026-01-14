@@ -1,0 +1,38 @@
+services:
+  # Flask application
+  dice-server:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://alloy:4317
+      - OTEL_SERVICE_NAME=dice-server
+      - OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+      - OTEL_SEMCONV_STABILITY_OPT_IN=http
+    depends_on:
+      - alloy
+    networks:
+      - webinar-otel
+
+  # Grafana Alloy for telemetry collection and processing
+  alloy:
+    image: grafana/alloy:latest
+    ports:
+      - "12345:12345"  # Alloy UI
+      - "4317:4317"    # OTLP gRPC receiver
+      - "4318:4318"    # OTLP HTTP receiver
+    volumes:
+      - ./configs/alloy-config.alloy:/etc/alloy/config.alloy
+    command:
+      - "run"
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "--storage.path=/var/lib/alloy/data"
+      - "/etc/alloy/config.alloy"
+    env_file:
+      - .env
+    networks:
+      - webinar-otel
+
+networks:
+  webinar-otel:
+    driver: bridge
