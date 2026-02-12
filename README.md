@@ -27,8 +27,8 @@ This is a simplified example - we're going to run the application and send its t
 1. Set up a local project directory:
 
    ```sh
-   git clone https://github.com/grafana/webinar-opentelemetry-getting-started/
-   cd webinar-opentelemetry-getting-started
+   git clone https://github.com/grafana/webinar-opentelemetry-python-getting-started/
+   cd webinar-opentelemetry-python-getting-started
    python3 -m venv venv
    source ./venv/bin/activate
    ```
@@ -137,8 +137,8 @@ This approach uses [Grafana Alloy](https://grafana.com/docs/alloy/latest/) to re
 1. If you haven't done it yet, clone this repository:
 
    ```sh
-   git clone https://github.com/grafana/webinar-opentelemetry-getting-started/
-   cd webinar-opentelemetry-getting-started
+   git clone https://github.com/grafana/webinar-opentelemetry-python-getting-started/
+   cd webinar-opentelemetry-python-getting-started
    ```
 
 2. Set up environment variables for Grafana Cloud:
