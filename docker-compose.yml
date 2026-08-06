@@ -16,7 +16,7 @@ services:
 
   # Grafana Alloy for telemetry collection and processing
   alloy:
-    image: grafana/alloy:latest@sha256:6616111d70b3c75d5aa177e0584a523403eaba0eb3b177cb387302c2206d5221
+    image: grafana/alloy:latest@sha256:0f4434c92b3e6cdac38bb129b344e1790c246f7b6e2eaffcc16a5fa363240e33
     ports:
       - "12345:12345"  # Alloy UI
       - "4317:4317"    # OTLP gRPC receiver
