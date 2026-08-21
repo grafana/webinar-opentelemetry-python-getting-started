@@ -47,7 +47,11 @@ This is a simplified example - we're going to run the application and send its t
    flask run -p 8080
    ```
 
-   With the application running, you should be able to see random dice rolls at [http://localhost:8080/rolldice](http://localhost:8080/rolldice).
+   With the application running, you should be able to see random dice rolls at [http://localhost:8080/rolldice](http://localhost:8080/rolldice). Each roll is
+   recorded in a local SQLite database (`dice.db`), and aggregated stats per player
+   are available at [http://localhost:8080/stats](http://localhost:8080/stats).
+   This lets you see SQL spans (`INSERT`/`SELECT`) alongside the HTTP spans once
+   OpenTelemetry auto-instrumentation is enabled.
 
 4. Install the OpenTelemetry distro and instrumentation:
 
@@ -116,9 +120,10 @@ This is a simplified example - we're going to run the application and send its t
 
    * Open [http://localhost:8080/rolldice](http://localhost:8080/rolldice) in your browser
    * Generate some dice rolls to create telemetry data
+   * Open [http://localhost:8080/stats](http://localhost:8080/stats) to trigger a SQL query against the local SQLite database
    * Wait for data to appear in Grafana Cloud (or check local Grafana at [http://localhost:3000](http://localhost:3000) if using OTel LGTM)
    * Check your Grafana dashboard for:
-     - **Traces**: Navigate to Explore → Tempo
+     - **Traces**: Navigate to Explore → Tempo, where you should see `INSERT`/`SELECT` SQL spans nested under the `GET /rolldice` and `GET /stats` HTTP spans
      - **Metrics**: Navigate to Explore → Prometheus
      - **Logs**: Navigate to Explore → Loki
 
@@ -173,6 +178,7 @@ This approach uses [Grafana Alloy](https://grafana.com/docs/alloy/latest/) to re
 
    * Test the application: [http://localhost:8080/rolldice](http://localhost:8080/rolldice)
    * Generate several dice rolls to create telemetry data
+   * Open [http://localhost:8080/stats](http://localhost:8080/stats) to trigger a SQL query against the local SQLite database
    * Wait for data to appear in Grafana Cloud
 
 
